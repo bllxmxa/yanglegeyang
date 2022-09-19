@@ -9,4 +9,4 @@
 3:input number
 4:start
 
-![image](about.png）
+![image](https://github.com/bllxmxa/yanglegeyang/blob/main/about.png）
