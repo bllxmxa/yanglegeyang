@@ -48,7 +48,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>26667409</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">

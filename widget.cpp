@@ -38,26 +38,10 @@ void Widget::on_pushButton_clicked()
 {
     status = 0;
     //设置url
-    QString t = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQyNDcwNjAsIm5iZiI6MTY2MzE0NDg2MCwiaWF0IjoxNjYzMTQzMDYwLCJqdGkiOiJDTTpjYXRfbWF0Y2g6bHQxMjM0NTYiLCJvcGVuX2lkIjoiIiwidWlkIjoyNjY2NzQwOSwiZGVidWciOiIiLCJsYW5nIjoiIn0.P4lqjKuo6ENufg6RDGNnzsZHGEHHy5B_CLl0sx4KxSU";
+    reqGet.setUrl(QUrl("http://cat-match.easygame2021.com/sheep/v1/game/user_info?uid=" + ui->lineEdit->text() +
+                       "&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQzMjcyNDYsIm5iZiI6MTY2MzIyNTA0NiwiaWF0IjoxNjYzMjIzMjQ2LCJqdGkiOiJDTTpjYXRfbWF0Y2g6bHQxMjM0NTYiLCJvcGVuX2lkIjoiIiwidWlkIjo4MzU0MzAxNCwiZGVidWciOiIiLCJsYW5nIjoiIn0.5qpiRRjxwUmN1U8Qst8dFBMWMQyWi26DcfTgHIITZds&content-type=application%2Fjson&User-Agent=Mozilla%2F5.0%20(iPhone%3B%20CPU%20iPhone%20OS%2015_6%20like%20Mac%20OS%20X)%20AppleWebKit%2F605.1.15%20(KHTML%2C%20like%20Gecko)%20Mobile%2F15E148%20MicroMessenger%2F8.0.28(0x18001c26)%20NetType%2FWIFI%20Language%2Fzh_CNh2"));
 
-    if(ui->textEdit->toPlainText() == ""){
-    reqGet.setUrl(QUrl("https://cat-match.easygame2021.com/sheep/v1/game/user_info?uid=" + ui->lineEdit->text() +
-                       "&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQzMjU1NDEsIm5iZiI6MTY2MzIy"
-                       "MzM0MSwiaWF0IjoxNjYzMjIxNTQxLCJqdGkiOiJDTTpjYXRfbWF0Y2g6bHQxMjM0NTYiLCJvcGVuX2lk"
-                       "IjoiIiwidWlkIjo1NTYxNzQxMywiZGVidWciOiIiLCJsYW5nIjoiIn0.FSWzMLXFu8UVe6Mcg36N7I2RzZaq-WPHSE2CZIZGI1E"));
-    }else{
-        reqGet.setUrl(QUrl("https://cat-match.easygame2021.com/sheep/v1/game/user_info?uid=" + ui->lineEdit->text()
-                           + "&t=" + t));
-    }
-
-    // 设置请求头
-    reqGet.setRawHeader("Host", "cat-match.easygame2021.com");
-    reqGet.setRawHeader("Connection", "keep-alive");
-    reqGet.setRawHeader("content-type", "application/json");
-    reqGet.setRawHeader("Accept-Encoding", "gzip,compress,br,deflate");
-    reqGet.setRawHeader("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.28(0x18001c29) NetType/WIFI Language/zh_CN");
-    reqGet.setRawHeader("Referer", "https://servicewechat.com/wx141bfb9b73c970a9/23/page-frame.html");
-
+    reqGet.setRawHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0");
     // 发送get请求
     replyGet = managerGet->get(reqGet);
 }
@@ -118,9 +102,6 @@ void Widget::receiveReplyPost(QNetworkReply *reply)
     //int status_code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     // 获取响应数据
     QString reply_data = reply->readAll();
-
-    qDebug()<<"post:"<<reply_data;
-
     QJsonDocument jdoc = QJsonDocument::fromJson(reply_data.toUtf8());
     QJsonObject jobject = jdoc.object();
     int err_code = jobject["err_code"].toInt();
@@ -146,16 +127,15 @@ void Widget::receiveReplyPost(QNetworkReply *reply)
 
 void Widget::on_pushButton_3_clicked()
 {
+
+    QString t = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQyNDcwNjAsIm5iZiI6MTY2MzE0NDg2MCwiaWF0IjoxNjYzMTQzMDYwLCJqdGkiOiJDTTpjYXRfbWF0Y2g6bHQxMjM0NTYiLCJvcGVuX2lkIjoiIiwidWlkIjoyNjY2NzQwOSwiZGVidWciOiIiLCJsYW5nIjoiIn0.P4lqjKuo6ENufg6RDGNnzsZHGEHHy5B_CLl0sx4KxSU";
     // 设置url 发送POST请求
-    reqPost.setUrl(QUrl("https://cat-match.easygame2021.com/sheep/v1/user/login_oppo"));
-    // 设置请求头
-    reqPost.setRawHeader("accept", "*/*");
-    reqPost.setRawHeader("Accept-Language", "zh-CN");
-    reqPost.setRawHeader("Content-Type", "application/json;charset=UTF-8");
-    reqPost.setRawHeader("tenantId", "1");
+    reqPost.setUrl(QUrl("http://cat-match.easygame2021.com/sheep/v1/user/login_oppo"));
     //设置请求数据
-    QString POSTmsg = "uid=" + uid + "&avatar=" + avatar + "&nick_name=124&sex=1";
+    QString POSTmsg =
+            "uid=" + uid +"&avatar=1&nick_name=1&sex=1&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQzMjcyNDYsIm5iZiI6MTY2MzIyNTA0NiwiaWF0IjoxNjYzMjIzMjQ2LCJqdGkiOiJDTTpjYXRfbWF0Y2g6bHQxMjM0NTYiLCJvcGVuX2lkIjoiIiwidWlkIjo4MzU0MzAxNCwiZGVidWciOiIiLCJsYW5nIjoiIn0.5qpiRRjxwUmN1U8Qst8dFBMWMQyWi26DcfTgHIITZds&content-type=application%2Fjson&User-Agent=Mozilla%2F5.0+(iPhone%3B+CPU+iPhone+OS+15_6+like+Mac+OS+X)+AppleWebKit%2F605.1.15+(KHTML%2C+like+Gecko)+Mobile%2F15E148+MicroMessenger%2F8.0.28(0x18001c26)+NetType%2FWIFI+Language%2Fzh_CN";
     // 发送post请求
+    reqPost.setRawHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0");
     replyPost = managerPost->post(reqPost, POSTmsg.toUtf8());
 }
 
@@ -169,8 +149,8 @@ void Widget::on_pushButton_2_clicked()
         ui->textEdit_2->append("开始刷入通关次数：" + ui->lineEdit_2->text() + "次");
         ui->pushButton_2->setEnabled(false);
         num = 0;
+        QVariant v;
         for (int var = 0; var < ui->lineEdit_2->text().toInt(); ++var) {
-            QVariant v;
             v.setValue("t=" + ui->textEdit->toPlainText().toUtf8());
             reqGet.setUrl(QUrl("https://cat-match.easygame2021.com/sheep/v1/game/game_over?rank_sco"
                                "re=1&rank_state=1&rank_time=1&rank_role=1&skin=1"));
