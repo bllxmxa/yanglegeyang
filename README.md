@@ -9,4 +9,4 @@
 3:input number
 4:start
 
-![](https://github.com/bllxmxa/yanglegeyang/blob/main/%E6%88%AA%E5%B1%8F2022-09-19%2018.46.21.png）
+![image](about.png）
